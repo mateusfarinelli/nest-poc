@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  database: 
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=nest-poc
+    volumes:
+      - pgdata:/data/postgres
+
+  app:
+    build: .
+    container_name: nest-poc
+    restart: always
+    ports:
+      - 3000:3000
+      - 9229:9229 # pode inserir essa porta tbm pra poder usar o debug
+    volumes:
+      - .:/usr/app
+    links: 
+      - database
+    depends_on:
+      - database
+    
+volumes: 
+  pgdata:
+    driver: local
