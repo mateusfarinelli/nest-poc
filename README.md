@@ -1,73 +1,63 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Prove of concept - NestJS<br><br>
+## O que é NestJS?<br>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Segundo a própria documentação, é um framework node.js progressivo para criar aplicações back-end.
+Assim como o "Angular", framework front-end desenvolvido pela Google, o Nest utiliza de uma arquitetura modular, ou seja, trabalha com módulos.<br>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Neste exemplo vemos a criação do modulo "Person" e como ele é trabalhado na forma de um CRUD.<br>
 
-## Description
+Para mim e para você *(caso seja meu colega de equipe)*, este framework tem como vantagem justamente o que foi descrito acima, por se assemelhar muito com Angular, temos como vantagem o reeaproveitamento de conhecimento adquirido durante o processo de desenvolvimento.<br><br>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Como executar essa POC<br>
+Primeiramente, é preciso que você instalado em sua máquina:
+  - [Node.js](https://nodejs.org/en/docs/)
+  - [NestJS](https://docs.nestjs.com/)
+  - [PostgreSQL](https://www.postgresql.org/docs/) (ou algum outro banco de dados relacional que você tenha dominio, mas lembre-se que será necessário alterar muitas coisas, então sugiro seguir com o Postgres mesmo)
+  - [Docker](https://docs.docker.com/) (opcional, mas recomendado)<br>
 
-## Installation
+E também ja me antecipo em dizer que foi utilizado o [TypeORM](https://typeorm.io/), caso você queria conferir a sua documentação.
 
-```bash
-$ npm install
-```
+Caso você não tenha instalado o docker, será necessário seguir o seguinte passo a passo:
 
-## Running the app
+- Navegue até o diretório onde você clonou este repositório;
+- Execute o comando **npm install** ou **npm i** (para os intimos);
+- Execute o comando **npm run typeorm migration:run** (para que a tabela "Persons" seja criado em seu banco de dados);
+- E por fim execute o comando npm run start:dev;
 
-```bash
-# development
-$ npm run start
+Caso você seja brabo (o manjador mesmo), e tenha docker instalado, faça:
+- docker compose up -d (esse -d mantem a aba do terminal liberado para uso sem trava-lo com log);
 
-# watch mode
-$ npm run start:dev
+## Endpoints
 
-# production mode
-$ npm run start:prod
-```
+Como disse, essa POC é extremamente simples e temos os seguintes endpoins:
+### **GET**
+- **/** - é a raiz da nossa aplicação e ela retorna o famigerado "Hello World";
+- **/person** - retorna um array com todos os registros existentes da entidade "Person";
+- **/person/:id** - retorna um unico registro com base no id;
 
-## Test
+### **POST**
+- **/person** - endpoint responsável por criar o registro da entidade "Person";
 
-```bash
-# unit tests
-$ npm run test
+### **PATCH/UPDATE**
+- **/person/:id** - endpoint responsável por atualizar o registro referente ao id da entidade "Person";
 
-# e2e tests
-$ npm run test:e2e
+### **DELETE**
+- **/person/:id** - endpoint responsável pela deleção do registro referente ao id da entidade "Person";
 
-# test coverage
-$ npm run test:cov
-```
+## O que esta por vir?
+Os proximos passos deste POC são:
+ - Adicionar multi tenancy feature, para que a aplicação consiga acessar o banco de acordo com o codigo do cliente;
+ - Iniciar o trabalho com environments;
+ - Iniciar trabalhos com testes unitários;
+ - Iniciar DevOps para facilitar deploy;
+## Está com dificuldades ou dúvidas sobre esse material?
+- Me chama no zap (só para conhecidos);
+- Me manda uma DM no [aqui](https://www.linkedin.com/in/mateusfarinellizardo/)
+## Fontes bibliográficas brabas
+ - <a>https://github.com/nestjs/nest/tree/master/sample/05-sql-typeorm</a>
+ - <a>https://betterprogramming.pub/nest-js-project-with-typeorm-and-postgres-ce6b5afac3be</a>
+ - <a>https://espositomarco.medium.com/handle-multi-tenant-multi-db-with-nestjs-and-typeorm-ee50f162485e</a>
+ - <a>https://github.com/marcoesposito/nestjs-typeorm-multi-tenant</a>
+ - <a>https://www.youtube.com/watch?v=sNosL578ECo</a>
+ - <a>https://www.youtube.com/watch?v=wLr23WHZQhA&t=1225s&ab_channel=MatheusCastiglioni</a>
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
