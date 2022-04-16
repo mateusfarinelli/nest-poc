@@ -16,7 +16,7 @@ Primeiramente, é preciso que você instalado em sua máquina:
   - [PostgreSQL](https://www.postgresql.org/docs/) (ou algum outro banco de dados relacional que você tenha dominio, mas lembre-se que será necessário alterar muitas coisas, então sugiro seguir com o Postgres mesmo)
   - [Docker](https://docs.docker.com/) (opcional, mas recomendado)<br>
 
-E também ja me antecipo em dizer que foi utilizado o [TypeORM](https://typeorm.io/), caso você queria conferir a sua documentação.
+E também ja me antecipo em dizer que foi utilizado o [TypeORM](https://typeorm.io/), caso você queira conferir a sua documentação.
 
 Caso você não tenha instalado o docker, será necessário seguir o seguinte passo a passo:
 
