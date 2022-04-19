@@ -7,71 +7,70 @@ import { Person } from './entities/person.entity';
 
 @Injectable()
 export class PersonService {
-  constructor(@InjectRepository(Person) private repository: Repository<Person>) {}
-  
-  async create(createPersonDto: CreatePersonDto): Promise<Person> {
-    const personExists = await this.repository.findOne({where: {email: createPersonDto.email}});
+  constructor(@InjectRepository(Person) private repository: Repository<Person>) { }
 
-    if(!personExists){
+  async create(createPersonDto: CreatePersonDto): Promise<Person> {
+    const personExists = await this.repository.findOne({ where: { email: createPersonDto.email } });
+
+    if (!personExists) {
       try {
         const person = await this.repository.save(createPersonDto);
 
         return person;
-      }catch (e) {
+      } catch (e) {
         return e;
       }
     }
   }
 
   async findAll(): Promise<Person[]> {
-    try{
+    try {
       const persons = await this.repository.find();
 
       return persons;
-    }catch (e){
+    } catch (e) {
       return e
     }
   }
 
   async findOne(id: number): Promise<Person> {
-    try{
-      const person = await this.repository.findOne({where: {id}});
+    try {
+      const person = await this.repository.findOne({ where: { id } });
 
       return person;
-    }catch (e){
+    } catch (e) {
       return e
     }
   }
 
-  async update(id: number, updatePersonDto: UpdatePersonDto): Promise<string> {
-    const personExists = await this.repository.findOne({where: {id}});
+  async update(id: number, updatePersonDto: UpdatePersonDto): Promise<Person | string> {
+    const personExists = await this.repository.findOne({ where: { id } });
 
-    if(personExists){
+    if (personExists) {
       try {
-        const person = await this.repository.update(id, updatePersonDto);
+        return await this.repository.save({ id, ...updatePersonDto });
 
-        return "Success person updated!";
-      }catch (e) {
+      } catch (e) {
         return e;
       }
-    }else {
+    } else {
       return "Person does not exists!";
     }
   }
 
   async remove(id: number): Promise<string> {
-    const person = await this.repository.findOne({where: {id}});
+    const person = await this.repository.findOne({ where: { id } });
 
-    if(person){
+    if (person) {
       try {
         await this.repository.delete(id);
-  
+
         return "Success";
-      }catch (e) {
+      } catch (e) {
         return e;
       }
     } else {
       return "Person does not exists!"
-    }   
+    }
   }
 }
